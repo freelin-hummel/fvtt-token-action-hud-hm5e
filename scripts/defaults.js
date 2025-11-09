@@ -15,16 +15,25 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
     DEFAULTS = {
         layout: [
             {
+                nestId: 'abilities',
+                id: 'abilities',
+                name: coreModule.api.Utils.i18n('HM5E.Abilities'),
+                groups: [
+                    { ...groups.abilities, nestId: 'abilities_abilities' }
+                ]
+            },
+            {
                 nestId: 'inventory',
                 id: 'inventory',
-                name: coreModule.api.Utils.i18n('Template.Inventory'),
+                name: coreModule.api.Utils.i18n('HM5E.Inventory'),
                 groups: [
                     { ...groups.weapons, nestId: 'inventory_weapons' },
                     { ...groups.armor, nestId: 'inventory_armor' },
-                    { ...groups.equipment, nestId: 'inventory_equipment' },
-                    { ...groups.consumables, nestId: 'inventory_consumables' },
-                    { ...groups.containers, nestId: 'inventory_containers' },
-                    { ...groups.treasure, nestId: 'inventory_treasure' }
+                    { ...groups.spells, nestId: 'inventory_spells' },
+                    { ...groups.skills, nestId: 'inventory_skills' },
+                    { ...groups.talents, nestId: 'inventory_talents' },
+                    { ...groups.proficiencies, nestId: 'inventory_proficiencies' },
+                    { ...groups.items, nestId: 'inventory_items' }
                 ]
             },
             {
@@ -34,7 +43,6 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 groups: [
                     { ...groups.combat, nestId: 'utility_combat' },
                     { ...groups.token, nestId: 'utility_token' },
-                    { ...groups.rests, nestId: 'utility_rests' },
                     { ...groups.utility, nestId: 'utility_utility' }
                 ]
             }

@@ -1,14 +1,22 @@
 {
   "tokenActionHud": {
-    "template": {
+    "hm5e": {
+      "abilities": "Abilities",
+      "ability": "Ability",
       "armor": "Armor",
-      "containers": "Containers",
-      "consumables": "Consumables",
-      "equipment": "Equipment",
-      "inventory": "Inventory",
+      "items": "Items",
       "item": "Item",
+      "inventory": "Inventory",
+      "proficiencies": "Proficiencies",
+      "proficiency": "Proficiency",
+      "skills": "Skills",
+      "skill": "Skill",
+      "spells": "Spells",
+      "spell": "Spell",
+      "talents": "Talents",
+      "talent": "Talent",
       "weapons": "Weapons",
-      "treasure": "Treasure",
+      "weapon": "Weapon",
       "settings": {
         "displayUnequipped": {
           "hint": "Choose whether to display unequipped items on the HUD",
@@ -16,5 +24,9 @@
         }
       }
     }
+  },
+  "HM5E": {
+    "Abilities": "Abilities",
+    "Inventory": "Inventory"
   }
 }
