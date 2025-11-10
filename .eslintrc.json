@@ -10,7 +10,14 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    "globals": {
+        "game": "readonly",
+        "canvas": "readonly",
+        "Hooks": "readonly",
+        "ChatMessage": "readonly"
+    },
     "rules": {
         "indent": ["error", 4]
-    }
+    },
+    "ignorePatterns": ["*.min.js"]
 }

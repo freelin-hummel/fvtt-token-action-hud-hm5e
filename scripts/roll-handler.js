@@ -21,7 +21,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 return this.doRenderItem(this.actor, actionId)
             }
 
-            const knownCharacters = ['character']
+            const knownCharacters = ['character', 'beast']
 
             // If single actor is selected
             if (this.actor) {
@@ -69,7 +69,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         async #handleAction (event, actor, token, actionTypeId, actionId) {
             switch (actionTypeId) {
             case 'item':
+            case 'weapon':
+            case 'armor':
+            case 'spell':
+            case 'skill':
+            case 'talent':
+            case 'proficiency':
                 this.#handleItemAction(event, actor, actionId)
+                break
+            case 'ability':
+                this.#handleAbilityAction(event, actor, actionId)
                 break
             case 'utility':
                 this.#handleUtilityAction(token, actionId)
@@ -86,7 +95,35 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          */
         #handleItemAction (event, actor, actionId) {
             const item = actor.items.get(actionId)
-            item.toChat(event)
+            if (item?.sheet) {
+                item.sheet.render(true)
+            }
+        }
+
+        /**
+         * Handle ability action
+         * @private
+         * @param {object} event    The event
+         * @param {object} actor    The actor
+         * @param {string} actionId The action id (ability key like 'str', 'dex', etc.)
+         */
+        #handleAbilityAction (event, actor, actionId) {
+            // For HM5E, we can show ability info in chat
+            const abilities = actor?.system?.abilities?.base
+            if (!abilities || !abilities[actionId]) return
+
+            const abilityData = abilities[actionId]
+            const abilityName = actionId.toUpperCase()
+            const abilityValue = abilityData.value
+
+            // Create a simple chat message showing the ability
+            ChatMessage.create({
+                speaker: ChatMessage.getSpeaker({ actor }),
+                content: `<div class="hm5e-ability-roll">
+                    <h3>${abilityName}</h3>
+                    <p><strong>Value:</strong> ${abilityValue}</p>
+                </div>`
+            })
         }
 
         /**

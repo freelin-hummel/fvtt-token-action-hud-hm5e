@@ -14,7 +14,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * Called by Token Action HUD Core
          * @override
          * @param {array} groupIds
-         */a
+         */
         async buildSystemActions (groupIds) {
             // Set actor and token variables
             this.actors = (!this.actor) ? this._getActors() : [this.actor]
@@ -30,7 +30,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 this.items = items
             }
 
-            if (this.actorType === 'character') {
+            if (this.actorType === 'character' || this.actorType === 'beast') {
                 this.#buildCharacterActions()
             } else if (!this.actor) {
                 this.#buildMultipleTokenActions()
@@ -42,6 +42,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @private
          */
         #buildCharacterActions () {
+            this.#buildAbilities()
             this.#buildInventory()
         }
 
@@ -51,6 +52,43 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @returns {object}
          */
         #buildMultipleTokenActions () {
+        }
+
+        /**
+         * Build abilities
+         * @private
+         */
+        async #buildAbilities () {
+            if (this.actorType !== 'character') return
+
+            const actionTypeId = 'ability'
+            const groupId = 'abilities'
+            const groupData = { id: groupId, type: 'system' }
+
+            // Get abilities from actor
+            const abilities = this.actor?.system?.abilities?.base
+            if (!abilities) return
+
+            const actions = Object.entries(abilities).map(([abilityId, abilityData]) => {
+                const id = abilityId
+                const name = abilityId.toUpperCase()
+                const value = abilityData.value
+                const info1 = { text: value.toString() }
+                const actionTypeName = coreModule.api.Utils.i18n(ACTION_TYPE[actionTypeId])
+                const listName = `${actionTypeName ? `${actionTypeName}: ` : ''}${name}`
+                const encodedValue = [actionTypeId, id].join(this.delimiter)
+
+                return {
+                    id,
+                    name,
+                    listName,
+                    encodedValue,
+                    info1
+                }
+            })
+
+            // TAH Core method to add actions to the action list
+            this.addActions(actions, groupData)
         }
 
         /**
