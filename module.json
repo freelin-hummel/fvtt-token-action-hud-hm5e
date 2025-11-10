@@ -12,9 +12,9 @@
       "url": "https://github.com/freelin-hummel"
     }
   ],
-  "url": "This is auto replaced",
+  "url": "https://github.com/freelin-hummel/fvtt-token-action-hud-hm5e",
   "flags": {},
-  "version": "This is auto replaced",
+  "version": "0.0.1-rc1",
   "compatibility": {
     "minimum": "11",
     "verified": "11.313"
@@ -67,8 +67,8 @@
     }
   },
   "socket": false,
-  "manifest": "This is auto replaced",
-  "download": "This is auto replaced",
+  "manifest": "https://raw.githubusercontent.com/freelin-hummel/fvtt-token-action-hud-hm5e/v0.0.1-rc1/module.json",
+  "download": "https://github.com/freelin-hummel/fvtt-token-action-hud-hm5e/releases/download/v0.0.1-rc1/token-action-hud-hm5e-test.zip",
   "readme": "https://github.com/freelin-hummel/fvtt-token-action-hud-hm5e#readme",
   "protected": false,
   "coreTranslation": false,
